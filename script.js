@@ -1,33 +1,36 @@
+document.addEventListener("DOMContentLoaded", function () {
+  let scrollPosition = 0;
+  const carousel = document.getElementById("carousel");
+  const imageWidth = 200 + 10; // Image width + margin
+  const totalImages = document.querySelectorAll(".carousel img").length;
+  const maxScroll = -(imageWidth * (totalImages - 3)); // Adjust based on visible images
 
-let scrollPosition = 0;
-const carousel = document.getElementById("carousel");
-const imageWidth = 200 + 10; // Image width + margin
-const totalImages = document.querySelectorAll(".carousel img").length;
-const maxScroll = -(imageWidth * (totalImages - 3)); // Adjust based on visible images
+  function updateCarousel() {
+      carousel.style.transition = "transform 0.4s ease-out"; // Smooth transition
+      carousel.style.transform = `translateX(${scrollPosition}px)`;
+  }
 
-function updateCarousel() {
-    carousel.style.transition = "transform 0.4s ease-out"; // Smooth transition
-    carousel.style.transform = `translateX(${scrollPosition}px)`;
-}
+  // **🖱 Smooth Mouse Wheel Scroll**
+  carousel.addEventListener("wheel", (event) => {
+      event.preventDefault(); // Prevent page scroll
 
-// **🖱 Smooth Mouse Wheel Scroll**
-carousel.addEventListener("wheel", (event) => {
-    event.preventDefault(); // Prevent page scroll
+      scrollPosition -= event.deltaX * 0.5; // Adjust scrolling speed
 
-    scrollPosition -= event.deltaX * 0.5; // Adjust scrolling speed
+      // Prevent over-scrolling
+      if (scrollPosition > 0) scrollPosition = 0;
+      if (scrollPosition < maxScroll) scrollPosition = maxScroll;
 
-    // Prevent over-scrolling
-    if (scrollPosition > 0) scrollPosition = 0;
-    if (scrollPosition < maxScroll) scrollPosition = maxScroll;
+      updateCarousel();
+  });
 
-    updateCarousel();
-});
-
-$(document).ready(function () {
+  // jQuery part for click handling
   $('#carousel img').on('click', function () {
     const $img = $(this);
     const imgIndex = $img.index();
+
+    console.log('Image clicked:', imgIndex);  // Logging here
     const existingBox = $(`#text-box-${imgIndex}`);
+    console.log('Existing box found?', existingBox.length > 0);  // Logging here
 
     if (existingBox.length) {
       existingBox.toggle();
@@ -75,18 +78,17 @@ $(document).ready(function () {
       $box.draggable();
     }
   });
-});
 
+  const toggle = document.getElementById("toggle-dropdown");
+  const dropdown = document.getElementById("dropdown");
 
-const toggle = document.getElementById("toggle-dropdown");
-const dropdown = document.getElementById("dropdown");
+  toggle.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent this click from bubbling to the document
+    dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+  });
 
-toggle.addEventListener("click", (event) => {
-  event.stopPropagation(); // Prevent this click from bubbling to the document
-  dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
-});
-
-// Close dropdown when clicking outside
-document.addEventListener("click", () => {
-  dropdown.style.display = "none";
+  // Close dropdown when clicking outside
+  document.addEventListener("click", () => {
+    dropdown.style.display = "none";
+  });
 });
