@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <title>Mind Palace</title>
+</head>
+<body>
+    <div class=mind>
+        <img src="logo.png" alt="Logo" width="200" height="auto"/> 
+    </div>
+        <div class="header"> </div>
+    <div class="conversations"> / Conversations I've had with a... </div>
+    <div class="slogan"> Finding the fun in [<span id="toggle-dropdown" class="clickable" > <span style="text-decoration: underline">fun</span>ctional ]</span> design.    
+   <div id="dropdown" class="dropdown-content">
+    <p>curious</p>
+    <p>surprising</p>
+    <p>interactive</p>
+    <p>spacial</p>
+    <p>contextual</p>
+    <p>purposeful</p>
+    <p>introspective</p>
+  </div>
+</div>
+</div>
+    <!-- <div class="what"> A space where everyday encounters spark ideas and shape my creative response. </div> -->
+    <div class="instruction"> / Click to eavesdrop on my conversations. Feel free to move them around, and let new thoughts emerge! </div>
+    <div class="slideshow-container">
+<div class="mainbody">
+
+    <div class="carousel-wrapper">
+       
+
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+               
+                <img src="2.png" class="a2" data-text="Can I use you as cutlery?">
+              
+                <img src="3.png" alt="Image 5" class="a3" data-text="I want to make people curious about the stories behind you and every other cuisine in London.">
+             
+                <img src="4.png" alt="Image 6" class="a5" data-text="I’m not sure how you work, but I’m ready to learn because you’ll bring my idea to life.">
+              
+                <img src="5.png" alt="Image 7" class="a6" data-text="Why can I only know time visually? What if we could know the time through movement?">
+               
+                <img src="6.png" alt="Image 8" class="a7" data-text="I'm making a typeface with you!">
+               
+                <img src="7.png" alt="Image 9" class="a8" data-text="Maybe when some of us live on Mars, we’ll send these to each other.">
+               
+                <img src="8.png" alt="Image 10" class="a9" data-text="Just by looking, I somehow know how this music will feel...">
+                
+                <img src="1.png" alt="Image 10" class="a10" data-text="What if the poster displayed utilised people’s natural movement on the travelator?">
+              
+            </div>
+        </div>
+
+       
+    </div>
+</div>
+
+<script>
+let scrollPosition = 0;
+const carousel = document.getElementById("carousel");
+const imageWidth = 200 + 10; // Image width + margin
+const totalImages = document.querySelectorAll(".carousel img").length;
+const maxScroll = -(imageWidth * (totalImages - 3)); // Adjust based on visible images
+
+function updateCarousel() {
+    carousel.style.transition = "transform 0.4s ease-out"; // Smooth transition
+    carousel.style.transform = `translateX(${scrollPosition}px)`;
+}
+
+// **🖱 Smooth Mouse Wheel Scroll**
+carousel.addEventListener("wheel", (event) => {
+    event.preventDefault(); // Prevent page scroll
+
+    scrollPosition -= event.deltaX * 0.5; // Adjust scrolling speed
+
+    // Prevent over-scrolling
+    if (scrollPosition > 0) scrollPosition = 0;
+    if (scrollPosition < maxScroll) scrollPosition = maxScroll;
+
+    updateCarousel();
+});
+
+$(document).ready(function () {
+  $('#carousel img').on('click', function () {
+    const $img = $(this);
+    const imgIndex = $img.index();
+    const existingBox = $(`#text-box-${imgIndex}`);
+
+    if (existingBox.length) {
+      existingBox.toggle();
+    } else {
+      const text = $img.data('text') || "No text provided";
+      const offset = $img.offset();
+      const boxWidth = 200;
+      const boxHeight = 100;
+
+      let boxTop, boxLeft;
+
+      if (imgIndex === 2) {
+        // 3rd image: above and centered horizontally
+        boxTop = offset.top - boxHeight - 10;
+        boxLeft = offset.left + ($img.width() / 2) - (boxWidth / 2);
+      } else if (imgIndex === 3) {
+        // 4th image: below and aligned to right edge
+        boxTop = offset.top + $img.height() + 100;
+        boxLeft = offset.left + $img.width() - 30;
+      } else if (imgIndex === 5) {
+        // 6th image: below and aligned to right edge
+        boxTop = offset.top + $img.height() + 150;
+        boxLeft = offset.left - $img.width();
+      } else if (imgIndex === 6) {
+        // 7th image: below and aligned to right edge
+        boxTop = offset.top - boxHeight - 10;
+        boxLeft = offset.left ;
+      } else {
+        // Default: below, left-aligned
+        boxTop = offset.top + $img.height() + 10;
+        boxLeft = offset.left;
+      }
+
+      const $box = $(`
+        <div class="text-box" id="text-box-${imgIndex}">
+          ${text}
+        </div>
+      `).appendTo('body');
+
+      $box.css({
+        top: boxTop,
+        left: boxLeft
+      });
+
+      $box.draggable();
+    }
+  });
+});
+
+
+const toggle = document.getElementById("toggle-dropdown");
+const dropdown = document.getElementById("dropdown");
+
+toggle.addEventListener("click", (event) => {
+  event.stopPropagation(); // Prevent this click from bubbling to the document
+  dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", () => {
+  dropdown.style.display = "none";
+});
+</script>
+
+
+
+<style>
+body {
+    overflow:hidden;
+     background-image: url('bg.png');
+     background-size: cover;
+}
+.header {
+    color: blue;
+    text-align: center;
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    padding-top: 22px;
+
+}
+
+.conversations {
+    color: blue;
+    text-align: center;
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    position: absolute;
+    left: 40%; 
+}
+
+.mind {
+    color: #e2531b;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    border: 20px;
+    padding-top: 22px;
+    position: absolute;
+    left: 20px;
+}
+
+.slogan {
+    color: #e2531b;
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    padding-top: 0px;
+    position: absolute;
+    right: 20px;
+    /* letter-spacing: 0.5px; */
+}
+
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.dropdown-content {
+  background-color: white;
+  display: none;
+  position: absolute;
+  top: 120%; /* Directly below the word */
+  left: 20;
+  padding-top: 0px;
+  margin-left: 142px;
+  padding-left: 5px;
+  padding-right: 5px;
+  z-index: 100;
+  white-space: nowrap;
+}
+
+.dropdown-content p {
+  margin: 0;
+  padding: 4px 0;
+}
+.mainbody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    margin: 0;
+}
+
+/* Wrapper to align carousel and buttons */
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 1300px;
+}
+
+/* Container for visible images */
+.carousel-container {
+    width: 1300px; /* Fits 5 images (150px each + 10px margin) */
+    overflow: hidden;
+    position: absolute;
+    transition: transform 0.8s ease-in-out;
+}
+.a1:hover,.a2:hover,.a3:hover,.a4:hover,.a5:hover,.a6:hover,.a7:hover, .a8:hover,.a9:hover,.a10:hover,.a11:hover,.a12:hover,.a13:hover,.a14:hover,.a15:hover,.a16:hover,.a17:hover,.a18:hover,.a19:hover,.a20:hover,.a21:hover,.a22:hover,.a23:hover,.a24:hover,.a25:hover,.a26:hover,.a27:hover,.a28:hover,.a29:hover,.a30:hover,.a31:hover {
+    transform: translateY(-10px) 
+}
+
+
+/* Carousel row */
+.carousel {
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+/* Styling for images */
+
+.carousel img {
+    width: 250px;
+    height: auto;
+    margin: 0 5px;
+    align-items: center;  
+    justify-content: center;  /* horizontal centering */  
+    position: relative;
+    cursor: pointer;
+}
+#carousel {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.4s ease-out; /* Smooth animation */
+    will-change: transform; /* Optimizes performance */
+    position: relative;
+   align-items: center; 
+}
+
+.text-box {
+  position: absolute;
+
+  padding: 10px;
+  cursor: move;
+  color: rgb(64, 64, 255);
+  opacity: 100%;
+ font-family: "Funnel Display", sans-serif;
+  font-size: 15px;
+  width: 200px;
+  z-index: 10;
+  user-select: none; /* prevent text highlight while dragging */
+}
+
+.what {
+
+    color: #e2531b;
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    padding-top: 0px;
+    position: absolute;
+    right:20px;
+    letter-spacing: 0.5px;
+}
+
+.instruction {
+    
+    color: rgb(0, 0, 255);
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    padding-top: 0px;
+    position: absolute;
+    top:95%;
+    left: 40%;
+    letter-spacing: 0.5px;
+   
+}
+
+
+
+</style>
+</body>
+</html>
+
+</body>
