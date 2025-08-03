@@ -1,0 +1,178 @@
+
+
+body {
+    overflow:hidden;
+     background-image: url('bg.png');
+     background-size: cover;
+}
+.header {
+    color: blue;
+    text-align: center;
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    padding-top: 22px;
+
+}
+
+.conversations {
+    color: blue;
+    text-align: center;
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    position: absolute;
+    left: 40%; 
+}
+
+.mind {
+    color: #e2531b;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    border: 20px;
+    padding-top: 22px;
+    position: absolute;
+    left: 20px;
+}
+
+.slogan {
+    color: #e2531b;
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    padding-top: 0px;
+    position: absolute;
+    right: 20px;
+    /* letter-spacing: 0.5px; */
+}
+
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.dropdown-content {
+  background-color: white;
+  display: none;
+  position: absolute;
+  top: 120%; /* Directly below the word */
+  left: 20;
+  padding-top: 0px;
+  margin-left: 142px;
+  padding-left: 5px;
+  padding-right: 5px;
+  z-index: 100;
+  white-space: nowrap;
+}
+
+.dropdown-content p {
+  margin: 0;
+  padding: 4px 0;
+}
+.mainbody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    margin: 0;
+}
+
+/* Wrapper to align carousel and buttons */
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 1300px;
+}
+
+/* Container for visible images */
+.carousel-container {
+    width: 1300px; /* Fits 5 images (150px each + 10px margin) */
+    overflow: hidden;
+    position: absolute;
+    transition: transform 0.8s ease-in-out;
+}
+.a1:hover,.a2:hover,.a3:hover,.a4:hover,.a5:hover,.a6:hover,.a7:hover, .a8:hover,.a9:hover,.a10:hover,.a11:hover,.a12:hover,.a13:hover,.a14:hover,.a15:hover,.a16:hover,.a17:hover,.a18:hover,.a19:hover,.a20:hover,.a21:hover,.a22:hover,.a23:hover,.a24:hover,.a25:hover,.a26:hover,.a27:hover,.a28:hover,.a29:hover,.a30:hover,.a31:hover {
+    transform: translateY(-10px) 
+}
+
+
+/* Carousel row */
+.carousel {
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+/* Styling for images */
+
+.carousel img {
+    width: 250px;
+    height: auto;
+    margin: 0 5px;
+    align-items: center;  
+    justify-content: center;  /* horizontal centering */  
+    position: relative;
+    cursor: pointer;
+}
+#carousel {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.4s ease-out; /* Smooth animation */
+    will-change: transform; /* Optimizes performance */
+    position: relative;
+   align-items: center; 
+}
+
+.text-box {
+  position: absolute;
+
+  padding: 10px;
+  cursor: move;
+  color: rgb(64, 64, 255);
+  opacity: 100%;
+ font-family: "Funnel Display", sans-serif;
+  font-size: 15px;
+  width: 200px;
+  z-index: 10;
+  user-select: none; /* prevent text highlight while dragging */
+}
+
+.what {
+
+    color: #e2531b;
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    padding-top: 0px;
+    position: absolute;
+    right:20px;
+    letter-spacing: 0.5px;
+}
+
+.instruction {
+    
+    color: rgb(0, 0, 255);
+    font-family: "Funnel Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: 20px;
+    padding-top: 0px;
+    position: absolute;
+    top:95%;
+    left: 40%;
+    letter-spacing: 0.5px;
+   
+}
+
+
